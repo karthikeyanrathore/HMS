@@ -1,0 +1,3 @@
+include iq/schema.sql
+graft iq/templates
+global-exclude *.pyc
