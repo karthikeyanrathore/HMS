@@ -1,0 +1,11 @@
+README.md
+setup.py
+iq/__init__.py
+iq/db.py
+iq/product.py
+iq.egg-info/PKG-INFO
+iq.egg-info/SOURCES.txt
+iq.egg-info/dependency_links.txt
+iq.egg-info/not-zip-safe
+iq.egg-info/requires.txt
+iq.egg-info/top_level.txt
