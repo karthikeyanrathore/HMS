@@ -37,6 +37,22 @@ def create_app(test_config=None):
     from . import patient
     app.register_blueprint(patient.bp)
 
+    from . import doctor
+    app.register_blueprint(doctor.bp)
+
+    from . import department
+    app.register_blueprint(department.bp)
+
+
+    from . import nurse
+    app.register_blueprint(nurse.bp)
+
+    from . import wards
+    app.register_blueprint(wards.bp)
+
+    from . import treatment
+    app.register_blueprint(treatment.bp)
+
 	
 
     return app

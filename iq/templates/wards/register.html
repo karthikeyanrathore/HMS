@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Wards Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="room_type">Room Type</label>
+    <input name="room_type" id="room_type" required>
+
+
+    
+   
+
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
