@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Home{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<li><a href="{{ url_for('patient.home') }}">Patient</a>
+  
+{% endblock %}

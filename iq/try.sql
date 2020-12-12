@@ -1,5 +1,0 @@
-SELECT ? FROM ? WHERE  ? = '%pc%';
-
-
-
-

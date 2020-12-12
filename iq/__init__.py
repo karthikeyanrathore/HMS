@@ -1,7 +1,9 @@
 import os
 
 from flask import Flask
-
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
 
 def create_app(test_config=None):
     # create and configure the app
@@ -25,15 +27,15 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/hello')
+    @app.route('/')
     def hello():
-        return 'Hello, World!'
+        return render_template('index.html')
 
     from . import db
     db.init_app(app)
 
-    from . import product
-    app.register_blueprint(product.bp)
+    from . import patient
+    app.register_blueprint(patient.bp)
 
 	
 
