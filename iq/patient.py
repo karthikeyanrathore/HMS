@@ -30,6 +30,7 @@ def register():
 
         sex =  request.form['sex']
         address  = request.form['address']
+        Ward_ID  = request.form['Ward_ID']
         
         
         from datetime import date
@@ -43,8 +44,8 @@ def register():
         if error is None:
             db = get_db()
 
-            db.execute('INSERT INTO Patient (Name , DOB , Sex , Address ,   Date_admit) VALUES (? ,  ? , ? , ? , ?)',
-                    (name , dob , sex , address ,   date_admit)
+            db.execute('INSERT INTO Patient (Name , DOB , Sex , Address ,   Date_admit , Ward_ID) VALUES (? ,  ? , ? , ? , ? , ?)',
+                    (name , dob , sex , address ,   date_admit , Ward_ID)
                     )
             db.commit()
             return redirect(url_for('patient.home'))
