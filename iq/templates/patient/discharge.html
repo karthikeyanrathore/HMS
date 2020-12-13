@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>{% block title %}Update date of Discharge {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+  
+  <label for="id">Patient Id</label>
+  <input name="id" id="id" required>
+
+    <label for="discharge">Date of Discharged</label>
+    <input name="discharge" id="discharge" required>
+  <input type="submit" value="Save">
+</form>
+<hr>
+
+{% endblock %}

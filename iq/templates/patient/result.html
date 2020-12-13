@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}RESULT {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<p>COST BILL : {{ sum }}</p>
+<li><a href="{{ url_for('patient.home') }}">OK</a>
+  
+
+  
+{% endblock %}
+
+
+
+
+

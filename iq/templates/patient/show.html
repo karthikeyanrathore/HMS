@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block content %}
+
+
+
   {% for x in SHOW %}
     <article class="post">
       <p class="body">Id = {{ x['P_ID'] }}</p>
@@ -16,7 +19,13 @@
       
       
       <p class="body">D_ID = {{ x['D_ID'] }}</p>
-
+     
+      {% for YY in FF %}
+        {% if x['P_ID'] == YY["P_ID"] %}
+          <p class="body">Contact  =   : {{ YY['Contact'] }}</p>
+      {% endif %}
+      {% endfor %}
+     
       
       <p class="body">Ward_ID = {{ x['Ward_ID'] }}</p>
       

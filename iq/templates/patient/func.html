@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Patient Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="T_ID">T_ID</label>
+    <input name="T_ID" id="T_ID" required>
+
+
+    
+   
+
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}BILL {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <li><a href="{{ url_for('patient.cost') }}">TOTAL COST</a>
+    <br></br>
+
+    <label for="id"> Patient id</label>
+    <input name="id" id="id" required>
+    <br></br>
+
+    <label for="T_ID">treatment ID </label>
+    <input name="T_ID" id="T_ID" required>
+    
+   
+
+    <input type="submit" value="Register">
+
+
+  </form>
+{% endblock %}
