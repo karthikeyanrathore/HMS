@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Patient SHOW{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for x in SHOW %}
+    <article class="post">
+      <p class="body">Id = {{ x['D_ID'] }}</p>
+      <p class="body">Name = {{ x['Name'] }}</p>
+      <p class="body">DOB = {{ x['DOB'] }}</p>
+      <p class="body">Sex = {{ x['Sex'] }}</p>
+      <p class="body">Address = {{ x['Address'] }}</p>
+      <p class="body">Salary = {{ x['Salary'] }}</p>
+      
+      
+      <p class="body">Dept_ID = {{ x['Dept_ID'] }}</p>
+
+      
+      
+      
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+
+
+
+

@@ -19,6 +19,32 @@ def home():
 
 
 
+@bp.route('/id', methods=('GET', 'POST'))
+def id():
+
+    db = get_db()
+    #count = 1
+    count = db.execute("SELECT COUNT(*) FROM Doctor").fetchone()[0]
+    print(count)
+    
+    return render_template('doctor/id.html' , (count) = (count))
+
+
+
+
+
+
+@bp.route('/show', methods=('GET', 'POST'))
+def show():
+
+    db = get_db()
+    SHOW = db.execute("SELECT * FROM Doctor").fetchall()
+    
+    
+    return render_template('doctor/show.html' , (SHOW) = (SHOW))
+
+
+
 
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -31,6 +57,8 @@ def register():
         sex =  request.form['sex']
         address  = request.form['address']
         salary  = request.form['salary']
+
+        Dept_ID = request.form['Dept_ID']
         
      
         
@@ -38,11 +66,11 @@ def register():
         if error is None:
             db = get_db()
 
-            db.execute('INSERT INTO Doctor (Name , DOB , Sex , Address ,   Salary) VALUES (? ,  ? , ? , ? , ?)',
-                    (name , dob , sex , address ,   salary)
+            db.execute('INSERT INTO Doctor (Name , DOB , Sex , Address ,   Salary , Dept_ID) VALUES (? ,  ? , ? , ? , ? , ?)',
+                    (name , dob , sex , address ,   salary , Dept_ID)
                     )
             db.commit()
-            return redirect(url_for('doctor.home'))
+            return redirect(url_for('doctor.id'))
 
 
     return render_template('doctor/register.html')

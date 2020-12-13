@@ -17,6 +17,15 @@ def home():
 
 
 
+@bp.route('/show', methods=('GET', 'POST'))
+def show():
+
+    db = get_db()
+    SHOW = db.execute("SELECT * FROM Department").fetchall()
+    
+    
+    return render_template('department/show.html' , (SHOW) = (SHOW))
+
 
 
 

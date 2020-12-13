@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Patient SHOW{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for x in SHOW %}
+    <article class="post">
+      <p class="body">Id = {{ x['P_ID'] }}</p>
+      <p class="body">Name = {{ x['Name'] }}</p>
+      <p class="body">DOB = {{ x['DOB'] }}</p>
+      <p class="body">Sex = {{ x['Sex'] }}</p>
+      <p class="body">Address = {{ x['Address'] }}</p>
+      <p class="body">Date_admit = {{ x['Date_admit'].strftime('%Y-%m-%d') }}</p>
+      <p class="body">Date_Discharged = {{ x['Date_Discharged'] }}</p>
+      
+      
+      <p class="body">D_ID = {{ x['D_ID'] }}</p>
+
+      
+      <p class="body">Ward_ID = {{ x['Ward_ID'] }}</p>
+      
+      
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+
+
+
+

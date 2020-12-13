@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Wards SHOW{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for x in SHOW %}
+    <article class="post">
+      <p class="body">Id = {{ x['Ward_ID'] }}</p>
+      <p class="body">Room Type = {{ x['Room_type'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
