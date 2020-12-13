@@ -173,11 +173,15 @@ def cost():
         (id , )
         ).fetchone()[0]
 
+        FF = db.execute('SELECT Cost , Name  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)' , 
+         (id , )
+        ).fetchall()
+
         #db.commit()
         #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
 
         
-        return render_template('patient/result.html' , (sum) = (sum))
+        return render_template('patient/result.html' , (sum) = (sum) , FF = FF)
     
     return render_template('patient/cost.html')
 

@@ -7,6 +7,12 @@
 {% block content %}
 
 <p>COST BILL : {{ sum }}</p>
+
+{% for x in FF %}
+<p class="body">Name  =   : {{ x['Name'] }}</p>
+<p class="body">Cost  =   : {{ x['Cost'] }}</p>
+{% endfor %}
+
 <li><a href="{{ url_for('patient.home') }}">OK</a>
   
 
