@@ -29,15 +29,20 @@ def id():
 
 
 
+@bp.route('/update', methods=('GET', 'POST'))
+def update():
+    return render_template('nurse/update.html')
+
 
 @bp.route('/show', methods=('GET', 'POST'))
 def show():
 
     db = get_db()
     SHOW = db.execute("SELECT * FROM Nurse").fetchall()
+    FF = db.execute("SELECT * FROM Nurse_Contact  ").fetchall()
     
     
-    return render_template('nurse/show.html' , (SHOW) = (SHOW))
+    return render_template('nurse/show.html' , (SHOW) = (SHOW) , FF = FF)
 
 
 
@@ -53,16 +58,26 @@ def register():
         salary  = request.form['salary']
 
         Ward_ID  = request.form['Ward_ID']
-        
-        db = get_db()
-        count = db.execute("SELECT COUNT(*) FROM Nurse").fetchone()[0]
-        count += 1
-        print(count)
+
+        Contact = request.form['Contact']
+      
 
         
         error = None
         if error is None:
             db = get_db()
+            count = db.execute("SELECT COUNT(*) FROM Nurse").fetchone()[0]
+            count += 1
+            print(count)
+
+            db.execute("INSERT INTO Nurse_Contact(N_ID , Contact , Ward_ID) VALUES(? , ? , ?)",
+                (count , Contact , Ward_ID)
+
+                )
+
+
+
+            #db = get_db()
 
             db.execute('INSERT INTO Nurse (Name , DOB , Sex , Address ,   Salary , Ward_ID , N_ID) VALUES (? ,  ? , ? , ? , ? , ? , ?)',
                     (name , dob , sex , address ,   salary , Ward_ID , count)
@@ -77,3 +92,24 @@ def register():
 
 
 
+
+@bp.route('/insert', methods=('GET', 'POST'))
+def insert():
+    if request.method == 'POST':
+        id = request.form['id']
+        Contact = request.form['Contact']
+        Ward_ID  = request.form['Ward_ID']
+
+        db = get_db()
+        db.execute("INSERT INTO Nurse_Contact(N_ID , Contact , Ward_ID) VALUES(? , ? , ?)",
+            (id , Contact , Ward_ID)
+
+            )
+
+        db.commit()
+        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+        
+        return redirect(url_for('nurse.home'))
+    
+    return render_template('nurse/insert.html')

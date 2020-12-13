@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Doctor{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  
+    <li><a href="{{ url_for('doctor.insert') }}">Add Another Contact No. </a>
+  
+{% endblock %}

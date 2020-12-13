@@ -18,6 +18,13 @@ def home():
 
 
 
+@bp.route('/update', methods=('GET', 'POST'))
+def update():
+    return render_template('doctor/update.html')
+
+
+
+
 
 @bp.route('/id', methods=('GET', 'POST'))
 def id():
@@ -26,6 +33,7 @@ def id():
     #count = 1
     count = db.execute("SELECT COUNT(*) FROM Doctor").fetchone()[0]
     print(count)
+    
     
     return render_template('doctor/id.html' , (count) = (count))
 
@@ -39,9 +47,10 @@ def show():
 
     db = get_db()
     SHOW = db.execute("SELECT * FROM Doctor").fetchall()
+    FF = db.execute("SELECT * FROM Doctor_Contact  ").fetchall()
     
     
-    return render_template('doctor/show.html' , (SHOW) = (SHOW))
+    return render_template('doctor/show.html' , (SHOW) = (SHOW)  , FF = FF)
 
 
 
@@ -59,12 +68,20 @@ def register():
         salary  = request.form['salary']
 
         Dept_ID = request.form['Dept_ID']
-        
+        Contact = request.form['Contact']
      
         
         error = None
         if error is None:
             db = get_db()
+
+            count = db.execute("SELECT COUNT(*) FROM Doctor").fetchone()[0]
+            count += 1
+            print(count)
+            db.execute("INSERT INTO Doctor_Contact(D_ID , Contact) VALUES(? , ?)",
+            (count , Contact)
+
+            )
 
             db.execute('INSERT INTO Doctor (Name , DOB , Sex , Address ,   Salary , Dept_ID) VALUES (? ,  ? , ? , ? , ? , ?)',
                     (name , dob , sex , address ,   salary , Dept_ID)
@@ -79,3 +96,22 @@ def register():
 
 
 
+
+@bp.route('/insert', methods=('GET', 'POST'))
+def insert():
+    if request.method == 'POST':
+        id = request.form['id']
+        Contact = request.form['Contact']
+        db = get_db()
+        db.execute("INSERT INTO Doctor_Contact(D_ID , Contact) VALUES(? , ?)",
+            (id , Contact)
+
+            )
+
+        db.commit()
+        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+        
+        return redirect(url_for('doctor.home'))
+    
+    return render_template('doctor/insert.html')

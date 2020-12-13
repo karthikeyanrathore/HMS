@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}INSERT {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="id">Doctor ID</label>
+    <input name="id" id="id" required>
+
+    <label for="Contact">Contact</label>
+    <input name="Contact" id="Contact">
+
+    
+   
+
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}

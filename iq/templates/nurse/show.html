@@ -16,6 +16,13 @@
       
       <p class="body">Ward_ID = {{ x['Ward_ID'] }}</p>
 
+      {% for YY in FF %}
+        {% if x['N_ID'] == YY["N_ID"] %}
+          <p class="body">Contact  =   : {{ YY['Contact'] }}</p>
+      {% endif %}
+      {% endfor %}
+     
+
       
       
       
