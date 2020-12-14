@@ -32,7 +32,7 @@ def id():
     count = db.execute("SELECT COUNT(*) FROM Patient").fetchone()[0]
     print(count)
     
-    return render_template('patient/id.html' , (count) = (count))
+    return render_template('patient/id.html' , count = count)
 
 
 
@@ -44,10 +44,14 @@ def show():
    
     SHOW = db.execute("SELECT * FROM Patient  ").fetchall()
     FF = db.execute("SELECT * FROM Patient_Contact  ").fetchall()
+
+    GG = db.execute("SELECT *  FROM Doctor").fetchall()
+
+    KK = db.execute("SELECT *  FROM Wards").fetchall()
     
     
-    return render_template('patient/show.html' , (SHOW) = (SHOW) , FF = FF)
-   
+    return render_template('patient/show.html' , SHOW = SHOW , FF = FF , GG = GG , KK = KK)
+
 
 
 
@@ -181,7 +185,7 @@ def cost():
         #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
 
         
-        return render_template('patient/result.html' , (sum) = (sum) , FF = FF)
+        return render_template('patient/result.html' , sum = sum , FF = FF)
     
     return render_template('patient/cost.html')
 

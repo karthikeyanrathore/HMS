@@ -2,8 +2,17 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - SQL</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
 <nav>
-  <h1><a href="{{ url_for('hello') }}" > HOSPITAL MANAGEMENT SYSTEM</a></h1>
+  <!--<h1><a href="{{ url_for('hello') }}" > HOSPITAL MANAGEMENT SYSTEM</a></h1>-->
+
+  <h1><center><a  href="{{ url_for('hello') }}" ><i class="fa fa-heartbeat" aria-hidden="true">HOSPITAL MANAGEMENT SYSTEM</i></a></center></h1>
+
+
 </nav>
 <section class="content">
   <header>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block header %}
-  <h1>{% block title %}Nurse SHOW{% endblock %}</h1>
+  <h1>{% block title %}Nurse Display Details{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,15 @@
       <p class="body">Salary = {{ x['Salary'] }}</p>
       
       
-      <p class="body">Ward_ID = {{ x['Ward_ID'] }}</p>
+      
+
+      {% for YY in GG %}
+      {% if x['Ward_ID'] == YY["Ward_ID"] %}
+        <p class="body">Ward Name  =   : {{ YY['Room_type'] }}</p>
+      {% endif %}
+      {% endfor %}
+   
+
 
       {% for YY in FF %}
         {% if x['N_ID'] == YY["N_ID"] %}

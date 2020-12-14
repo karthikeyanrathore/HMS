@@ -35,7 +35,7 @@ def id():
     print(count)
     
     
-    return render_template('doctor/id.html' , (count) = (count))
+    return render_template('doctor/id.html' , count = count)
 
 
 
@@ -48,9 +48,11 @@ def show():
     db = get_db()
     SHOW = db.execute("SELECT * FROM Doctor").fetchall()
     FF = db.execute("SELECT * FROM Doctor_Contact  ").fetchall()
+
+    GG = db.execute("SELECT * FROM Department  ").fetchall()
     
     
-    return render_template('doctor/show.html' , (SHOW) = (SHOW)  , FF = FF)
+    return render_template('doctor/show.html' , SHOW = SHOW  , FF = FF , GG = GG)
 
 
 

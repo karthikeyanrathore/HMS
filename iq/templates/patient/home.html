@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block content %}
+<br></br>
 <li><a href="{{ url_for('patient.register') }}">Register</a>
-<li><a href="{{ url_for('patient.show') }}">Show</a>
+  <br></br>
+<li><a href="{{ url_for('patient.show') }}">Patient Display Details</a>
+  <br></br>
   <li><a href="{{ url_for('patient.update') }}">Update</a>
+    <br></br>
     <li><a href="{{ url_for('patient.bill') }}">BILL</a>
   
 {% endblock %}

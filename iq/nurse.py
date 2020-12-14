@@ -24,7 +24,7 @@ def id():
     count = db.execute("SELECT COUNT(*) FROM Nurse").fetchone()[0]
     print(count)
     
-    return render_template('nurse/id.html' , (count) = (count))
+    return render_template('nurse/id.html' , count = count)
 
 
 
@@ -40,9 +40,10 @@ def show():
     db = get_db()
     SHOW = db.execute("SELECT * FROM Nurse").fetchall()
     FF = db.execute("SELECT * FROM Nurse_Contact  ").fetchall()
+    GG = db.execute("SELECT * FROM Wards  ").fetchall()
     
     
-    return render_template('nurse/show.html' , (SHOW) = (SHOW) , FF = FF)
+    return render_template('nurse/show.html' , SHOW = SHOW , FF = FF , GG = GG)
 
 
 

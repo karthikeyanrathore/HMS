@@ -23,7 +23,7 @@ def show():
     SHOW = db.execute("SELECT * FROM Treatment").fetchall()
     
     
-    return render_template('treatment/show.html' , (SHOW) = (SHOW))
+    return render_template('treatment/show.html' , SHOW = SHOW)
 
 
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block header %}
-  <h1>{% block title %}Doctor SHOW{% endblock %}</h1>
+  <h1>{% block title %}Doctor Display Details{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -12,9 +12,17 @@
       <p class="body">Sex = {{ x['Sex'] }}</p>
       <p class="body">Address = {{ x['Address'] }}</p>
       <p class="body">Salary = {{ x['Salary'] }}</p>
+
+      
+      {% for YY in GG %}
+        {% if x['Dept_ID'] == YY["Dept_ID"] %}
+          <p class="body">Department Name = {{ YY['Name'] }}</p>
+      {% endif %}
+      {% endfor %}
+     
       
       
-      <p class="body">Dept_ID = {{ x['Dept_ID'] }}</p>
+      
       {% for YY in FF %}
         {% if x['D_ID'] == YY["D_ID"] %}
           <p class="body">Contact  =   : {{ YY['Contact'] }}</p>

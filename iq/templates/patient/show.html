@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block header %}
-  <h1>{% block title %}Patient SHOW{% endblock %}</h1>
+  <h1>{% block title %}Patient Display Details{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -18,16 +18,38 @@
       <p class="body">Date_Discharged = {{ x['Date_Discharged'] }}</p>
       
       
-      <p class="body">D_ID = {{ x['D_ID'] }}</p>
+      
+
+      {% for YY in GG %}
+        {% if x['D_ID'] == YY["D_ID"] %}
+          <p class="body">Treated  By   =  {{ YY['Name'] }}</p>
+
+      {% endif %}
+      {% endfor %}
      
       {% for YY in FF %}
         {% if x['P_ID'] == YY["P_ID"] %}
           <p class="body">Contact  =   : {{ YY['Contact'] }}</p>
+
       {% endif %}
       {% endfor %}
+
+
+      {% for YY in KK %}
+      {% if x['Ward_ID'] == YY["Ward_ID"] %}
+        <p class="body">Ward Type   =  {{ YY['Room_type'] }}</p>
+
+      {% endif %}
+      {% endfor %}
+        
+      
+
+
+
+      
      
       
-      <p class="body">Ward_ID = {{ x['Ward_ID'] }}</p>
+     
       
       
     </article>

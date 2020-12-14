@@ -24,7 +24,7 @@ def show():
     SHOW = db.execute("SELECT * FROM Wards").fetchall()
     
     
-    return render_template('wards/show.html' , (SHOW) = (SHOW))
+    return render_template('wards/show.html' , SHOW = SHOW)
 
 
 
