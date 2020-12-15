@@ -51,22 +51,30 @@ def show():
 def register():
     if request.method == 'POST':
         name = request.form['name']
-        
         dob= request.form['dob']
-
         sex =  request.form['sex']
         address  = request.form['address']
         salary  = request.form['salary']
-
         Ward_ID  = request.form['Ward_ID']
-
         Contact = request.form['Contact']
       
-
-        
         error = None
+        if len(str(Contact)) != 10:
+            error = "Contact No. Should be 10 Digit Number"
+        flash(error)
+        
+        
+        db = get_db()
+        ward = db.execute(
+            'SELECT * FROM Wards WHERE Ward_ID = ?', (Ward_ID,)
+        ).fetchone()
+
+        if ward is None:
+            error = "Ward  ID : {} is not registered".format(Ward_ID)
+
+        flash(error)
+        
         if error is None:
-            db = get_db()
             count = db.execute("SELECT COUNT(*) FROM Nurse").fetchone()[0]
             count += 1
             print(count)

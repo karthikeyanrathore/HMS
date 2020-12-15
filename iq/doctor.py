@@ -9,20 +9,14 @@ from iq.db import get_db
 bp = Blueprint('doctor', __name__, url_prefix='/doctor')
 
 
-
-
 @bp.route('/home', methods=('GET', 'POST'))
 def home():
     return render_template('doctor/home.html')
 
 
-
-
 @bp.route('/update', methods=('GET', 'POST'))
 def update():
     return render_template('doctor/update.html')
-
-
 
 
 
@@ -71,11 +65,24 @@ def register():
 
         Dept_ID = request.form['Dept_ID']
         Contact = request.form['Contact']
-     
         
+        db = get_db()
         error = None
+        if len(str(Contact)) != 10:
+            error = "Contact No. Should be 10 Digit Number"
+
+        flash(error)
+       
+        department = db.execute(
+            'SELECT * FROM Department WHERE Dept_ID = ?', (Dept_ID,)
+        ).fetchone()
+
+        if department is None:
+            error = "Department  ID : {} is not registered".format(Dept_ID)
+
+        flash(error)
+
         if error is None:
-            db = get_db()
 
             count = db.execute("SELECT COUNT(*) FROM Doctor").fetchone()[0]
             count += 1

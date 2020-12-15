@@ -3,20 +3,13 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from iq.db import get_db
-
 bp = Blueprint('patient', __name__, url_prefix='/patient')
-
-
 
 
 @bp.route('/home', methods=('GET', 'POST'))
 def home():
     return render_template('patient/home.html')
-
-
-
 
 
 @bp.route('/update', methods=('GET', 'POST'))
@@ -26,61 +19,56 @@ def update():
 
 @bp.route('/id', methods=('GET', 'POST'))
 def id():
-
     db = get_db()
-    #count = 1
     count = db.execute("SELECT COUNT(*) FROM Patient").fetchone()[0]
-    print(count)
-    
     return render_template('patient/id.html' , count = count)
-
-
 
 
 @bp.route('/show', methods=('GET', 'POST'))
 def show():
-
     db = get_db()
-   
     SHOW = db.execute("SELECT * FROM Patient  ").fetchall()
     FF = db.execute("SELECT * FROM Patient_Contact  ").fetchall()
-
     GG = db.execute("SELECT *  FROM Doctor").fetchall()
-
     KK = db.execute("SELECT *  FROM Wards").fetchall()
-    
-    
     return render_template('patient/show.html' , SHOW = SHOW , FF = FF , GG = GG , KK = KK)
-
-
 
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
         name = request.form['name']
-        
         dob= request.form['dob']
-
         sex =  request.form['sex']
         address  = request.form['address']
         Ward_ID  = request.form['Ward_ID']
         D_ID = request.form['D_ID']
-
         Contact = request.form['Contact']
-
         
-        #from datetime import date
-        #today = date.today()
-
-        # dd/mm/YY
-        #date_admit = today.strftime("%d/%m/%Y")
-        #print("d1 =", d1)
-        
+        db = get_db()
         error = None
-        if error is None:
-            db = get_db()
+        if len(str(Contact)) != 10:
+            error = "Contact No. Should be 10 Digit Number"
 
+        flash(error)
+        ward = db.execute(
+            'SELECT * FROM Wards WHERE Ward_ID = ?', (Ward_ID,)
+        ).fetchone()
+
+        if ward is None:
+            error = "Ward  ID : {} is not registered".format(Ward_ID)
+
+        flash(error)
+        doctor = db.execute(
+            'SELECT * FROM Doctor WHERE D_ID = ?', (D_ID,)
+        ).fetchone()
+
+        if doctor is None:
+            error = "Doctor  ID : {} is not registered".format(D_ID)
+
+        flash(error)
+
+        if error is None:
             count = db.execute("SELECT COUNT(*) FROM Patient").fetchone()[0]
             count += 1
             print(count)
@@ -88,22 +76,14 @@ def register():
             (count , Contact)
 
             )
-
             db.execute('INSERT INTO Patient (Name , DOB , Sex , Address ,    Ward_ID , D_ID) VALUES (? ,   ? , ? , ? , ? , ?)',
                     (name , dob , sex , address ,     Ward_ID , D_ID)
                     )
-           
-
     
             db.commit()
-
             return redirect(url_for('patient.id'))
 
-
     return render_template('patient/register.html')
-
-
-
 
 
 @bp.route('/update_discharge', methods=('GET', 'POST'))
@@ -112,7 +92,6 @@ def update_discharge():
         id = request.form['id']
         discharge = request.form['discharge']
         db = get_db()
-
         error = None
         name = db.execute(
             'SELECT * FROM Patient WHERE P_ID = ?', (id,)
@@ -124,7 +103,6 @@ def update_discharge():
         flash(error)
 
         if error is None:
-            #db = get_db()
             db.execute(
                 'UPDATE Patient SET Date_Discharged = ?'
                 ' WHERE P_ID = ?',
@@ -136,17 +114,13 @@ def update_discharge():
     return render_template('patient/discharge.html')
 
 
-
-
 @bp.route('/update_dID', methods=('GET', 'POST'))
 def update_dID():
     if request.method == 'POST':
         id = request.form['id']
         D_ID = request.form['D_ID']
-
         db = get_db()
-
-
+        
         error = None
         name = db.execute(
             'SELECT * FROM Patient WHERE P_ID = ?', (id,)
@@ -158,7 +132,6 @@ def update_dID():
         flash(error)
 
         if error is None:
-           # db = get_db()
             db.execute(
                 'UPDATE Patient SET D_ID = ?'
                 ' WHERE P_ID = ?',
@@ -168,8 +141,6 @@ def update_dID():
             return redirect(url_for('patient.home'))
 
     return render_template('patient/dID.html')
-
-
 
 
 @bp.route('/bill', methods=('GET', 'POST'))
@@ -190,18 +161,14 @@ def bill():
 
         flash(error)
 
-
-
         if error is None:
             db.execute("INSERT INTO Bill (P_ID , T_ID) VALUES (? , ?)",
             (id , T_ID )
             )
             db.commit()
-            
             return redirect(url_for('patient.bill'))
     
     return render_template('patient/bill.html')
-
 
 
 @bp.route('/cost', methods=('GET', 'POST'))
@@ -257,7 +224,6 @@ def insert():
         flash(error)
 
         if error is None:
-            #db = get_db()
             db.execute("INSERT INTO Patient_Contact(P_ID , Contact) VALUES(? , ?)",
                 (id , Contact)
 
@@ -265,8 +231,6 @@ def insert():
 
             db.commit()
             #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
-
-            
             return redirect(url_for('patient.home'))
     
     return render_template('patient/insert.html')
