@@ -147,7 +147,6 @@ def update_dID():
 def bill():
     if request.method == 'POST':
         id = request.form['id']
-        #count_treatment = int(request.form['count_treatment'])
         T_ID = request.form['T_ID']
         db = get_db()
 
@@ -195,10 +194,6 @@ def cost():
             FF = db.execute('SELECT Cost , Name  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)' , 
             (id , )
             ).fetchall()
-
-            #db.commit()
-            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
-
             
             return render_template('patient/result.html' , sum = sum , FF = FF)
         
@@ -230,7 +225,6 @@ def insert():
                 )
 
             db.commit()
-            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
             return redirect(url_for('patient.home'))
     
     return render_template('patient/insert.html')
