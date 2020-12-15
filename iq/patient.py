@@ -157,12 +157,26 @@ def bill():
         #count_treatment = int(request.form['count_treatment'])
         T_ID = request.form['T_ID']
         db = get_db()
-        db.execute("INSERT INTO Bill (P_ID , T_ID) VALUES (? , ?)",
-        (id , T_ID )
-        )
-        db.commit()
-        
-        return redirect(url_for('patient.bill'))
+
+        error = None
+        name = db.execute(
+            'SELECT * FROM Patient WHERE P_ID = ?', (id,)
+        ).fetchone()
+
+        if name is None:
+            error = "{} is not registered".format(id)
+
+        flash(error)
+
+
+
+        if error is None:
+            db.execute("INSERT INTO Bill (P_ID , T_ID) VALUES (? , ?)",
+            (id , T_ID )
+            )
+            db.commit()
+            
+            return redirect(url_for('patient.bill'))
     
     return render_template('patient/bill.html')
 
