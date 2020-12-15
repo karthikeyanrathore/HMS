@@ -102,15 +102,27 @@ def insert():
         Ward_ID  = request.form['Ward_ID']
 
         db = get_db()
-        db.execute("INSERT INTO Nurse_Contact(N_ID , Contact , Ward_ID) VALUES(? , ? , ?)",
-            (id , Contact , Ward_ID)
 
-            )
+        error = None
+        name = db.execute(
+            'SELECT * FROM Nurse WHERE N_ID = ?', (id,)
+        ).fetchone()
 
-        db.commit()
-        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+        if name is None:
+            error = "Nurse id :{} is not registered".format(id)
 
-        
-        return redirect(url_for('nurse.home'))
+        flash(error)
+
+        if error is None:
+            db.execute("INSERT INTO Nurse_Contact(N_ID , Contact , Ward_ID) VALUES(? , ? , ?)",
+                (id , Contact , Ward_ID)
+
+                )
+
+            db.commit()
+            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+            
+            return redirect(url_for('nurse.home'))
     
     return render_template('nurse/insert.html')

@@ -105,15 +105,27 @@ def insert():
         id = request.form['id']
         Contact = request.form['Contact']
         db = get_db()
-        db.execute("INSERT INTO Doctor_Contact(D_ID , Contact) VALUES(? , ?)",
-            (id , Contact)
 
-            )
+        error = None
+        name = db.execute(
+            'SELECT * FROM Doctor WHERE D_ID = ?', (id,)
+        ).fetchone()
 
-        db.commit()
-        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+        if name is None:
+            error = "Doctor id :{} is not registered".format(id)
 
-        
-        return redirect(url_for('doctor.home'))
+        flash(error)
+
+        if error is None:
+            db.execute("INSERT INTO Doctor_Contact(D_ID , Contact) VALUES(? , ?)",
+                (id , Contact)
+
+                )
+
+            db.commit()
+            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+            
+            return redirect(url_for('doctor.home'))
     
     return render_template('doctor/insert.html')

@@ -111,17 +111,27 @@ def update_discharge():
     if request.method == 'POST':
         id = request.form['id']
         discharge = request.form['discharge']
-
-
-
         db = get_db()
-        db.execute(
-            'UPDATE Patient SET Date_Discharged = ?'
-            ' WHERE P_ID = ?',
-            (discharge, id)
-        )
-        db.commit()
-        return redirect(url_for('patient.home'))
+
+        error = None
+        name = db.execute(
+            'SELECT * FROM Patient WHERE P_ID = ?', (id,)
+        ).fetchone()
+
+        if name is None:
+            error = "Patient id :{} is not registered".format(id)
+
+        flash(error)
+
+        if error is None:
+            #db = get_db()
+            db.execute(
+                'UPDATE Patient SET Date_Discharged = ?'
+                ' WHERE P_ID = ?',
+                (discharge, id)
+            )
+            db.commit()
+            return redirect(url_for('patient.home'))
 
     return render_template('patient/discharge.html')
 
@@ -134,16 +144,28 @@ def update_dID():
         id = request.form['id']
         D_ID = request.form['D_ID']
 
-
-
         db = get_db()
-        db.execute(
-            'UPDATE Patient SET D_ID = ?'
-            ' WHERE P_ID = ?',
-            (D_ID, id)
-        )
-        db.commit()
-        return redirect(url_for('patient.home'))
+
+
+        error = None
+        name = db.execute(
+            'SELECT * FROM Patient WHERE P_ID = ?', (id,)
+        ).fetchone()
+
+        if name is None:
+            error = "Patient id :{} is not registered".format(id)
+
+        flash(error)
+
+        if error is None:
+           # db = get_db()
+            db.execute(
+                'UPDATE Patient SET D_ID = ?'
+                ' WHERE P_ID = ?',
+                (D_ID, id)
+            )
+            db.commit()
+            return redirect(url_for('patient.home'))
 
     return render_template('patient/dID.html')
 
@@ -164,7 +186,7 @@ def bill():
         ).fetchone()
 
         if name is None:
-            error = "{} is not registered".format(id)
+            error = "Patient id :{} is not registered".format(id)
 
         flash(error)
 
@@ -187,20 +209,32 @@ def cost():
     if request.method == 'POST':
         id = request.form['id']
         db = get_db()
-        sum = db.execute("select SUM(Cost)  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)",
-        (id , )
-        ).fetchone()[0]
 
-        FF = db.execute('SELECT Cost , Name  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)' , 
-         (id , )
-        ).fetchall()
+        error = None
+        name = db.execute(
+            'SELECT * FROM Patient WHERE P_ID = ?', (id,)
+        ).fetchone()
 
-        #db.commit()
-        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+        if name is None:
+            error = "Patient id :{} is not registered".format(id)
 
+        flash(error)
+
+        if error is None:
+            sum = db.execute("select SUM(Cost)  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)",
+            (id , )
+            ).fetchone()[0]
+
+            FF = db.execute('SELECT Cost , Name  from Treatment where T_ID in (select T_ID from Bill where P_ID = ?)' , 
+            (id , )
+            ).fetchall()
+
+            #db.commit()
+            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+            
+            return render_template('patient/result.html' , sum = sum , FF = FF)
         
-        return render_template('patient/result.html' , sum = sum , FF = FF)
-    
     return render_template('patient/cost.html')
 
 
@@ -211,15 +245,28 @@ def insert():
         id = request.form['id']
         Contact = request.form['Contact']
         db = get_db()
-        db.execute("INSERT INTO Patient_Contact(P_ID , Contact) VALUES(? , ?)",
-            (id , Contact)
 
-            )
+        error = None
+        name = db.execute(
+            'SELECT * FROM Patient WHERE P_ID = ?', (id,)
+        ).fetchone()
 
-        db.commit()
-        #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+        if name is None:
+            error = "Patient id :{} is not registered".format(id)
 
-        
-        return redirect(url_for('patient.home'))
+        flash(error)
+
+        if error is None:
+            #db = get_db()
+            db.execute("INSERT INTO Patient_Contact(P_ID , Contact) VALUES(? , ?)",
+                (id , Contact)
+
+                )
+
+            db.commit()
+            #Select SUM(cost)  from treatment where tid in (select tid from bill where pid = ?)
+
+            
+            return redirect(url_for('patient.home'))
     
     return render_template('patient/insert.html')
