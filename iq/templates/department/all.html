@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Display All Doctors From Department{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+{% for x in FF %}
+    <article class="post">
+      <p class="body">Doctor Name = {{ x['Name'] }}</p>
+    </article>
+{% endfor %}
+{% endblock %}
+
+
