@@ -1,5 +1,6 @@
 ## Web sql
 
-master branch - sql injection
-main branch - Hospital management.
 
+* main branch : Hospital Management System
+
+* master branch : Sql injection & future template
