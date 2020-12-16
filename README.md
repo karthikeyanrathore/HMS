@@ -1,4 +1,4 @@
-## Main Branch - HOTEL MANAGEMENT SYSTEM
+## Main Branch - HOSPITAL MANAGEMENT SYSTEM
 
 
 ### Team Members
