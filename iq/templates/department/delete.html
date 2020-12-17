@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form method="post">
+     <label for="Dept_ID">Department ID</label>
+    <input name="Dept_ID" id="Dept_ID" required>
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}

@@ -30,3 +30,24 @@ def register():
             return redirect(url_for('wards.home'))
 
     return render_template('wards/register.html')
+
+@bp.route('/delete', methods=('GET', 'POST'))
+def delete():
+    if request.method == 'POST':
+        Ward_ID = request.form['Ward_ID']
+        db = get_db()
+
+        error = None
+        WARDS = db.execute(
+            'SELECT * FROM Wards WHERE Ward_ID = ?', (Ward_ID,)
+        ).fetchone()
+        if WARDS is None:
+            error = "WARD  ID : {} is not registered".format(Ward_ID)
+        flash(error)
+        if error is None:
+            db.execute('DELETE FROM Wards WHERE Ward_ID = ?', (Ward_ID,))
+            db.commit()
+            return redirect(url_for('wards.home'))
+
+    return render_template('wards/delete.html')
+

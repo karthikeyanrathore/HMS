@@ -50,3 +50,26 @@ def display():
 
         
     return render_template('department/display.html' )
+
+@bp.route('/delete', methods=('GET', 'POST'))
+def delete():
+    if request.method == 'POST':
+        Dept_ID = request.form['Dept_ID']
+        db = get_db()
+
+        error = None
+        dep = db.execute(
+            'SELECT * FROM Department WHERE Dept_ID = ?', (Dept_ID,)
+        ).fetchone()
+        if dep is None:
+            error = "Department  ID : {} is not registered".format(Dept_ID)
+        flash(error)
+        if error is None:
+            db.execute('DELETE FROM Department WHERE Dept_ID = ?', (Dept_ID,))
+            db.commit()
+            return redirect(url_for('department.home'))
+
+    return render_template('department/delete.html')
+
+
+
