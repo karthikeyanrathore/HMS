@@ -1,13 +1,21 @@
-## Main Branch - HOSPITAL MANAGEMENT SYSTEM
+# Main Branch - HOSPITAL MANAGEMENT SYSTEM
+
+## run
+* chmod +x launch.sh
+* ./launch.sh
 
 
-### Team Members
+## Team Members
 - Aniket Purkayastha
 - Karthikeyan Rathore
 - Anrup Sharma
 - Asfahan shah
 
 
-### Branch
+## Branch
 * main branch : Hospital Management System
 * master branch : Sql injection & future template
+
+
+
+
