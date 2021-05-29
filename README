@@ -17,5 +17,13 @@
 * master branch : Sql injection & future template
 
 
+# Master Branch
+
+## run
+* chmod +x sql.sh
+* ./sql.sh
+
+
+
 
 
