@@ -11,16 +11,18 @@ def search():
   if request.method == 'POST':
     find = request.form['find']
     name = request.form['name']
+    query = request.form['options']
     error = None
     db = get_db()
 
-    # correct way
-    #LP = db.execute("SELECT * FROM product WHERE id = ? AND name = ?" ,( find , name))
-
-    # wrong way (SQL-injection-attack)
-    #LP = db.execute("SELECT * FROM product")
-    LP = db.execute(f"SELECT * FROM product WHERE id = '{find}' AND name = '{name}'")
-    
+    if(int(query) == 1):
+      # correct way
+      LP = db.execute("SELECT * FROM product WHERE id = ? AND name = ?" ,( find , name))
+    else:
+      # wrong way (SQL-injection-attack)
+      #LP = db.execute("SELECT * FROM product")
+      LP = db.execute(f"SELECT * FROM product WHERE id = '{find}' AND name = '{name}'")
+      
     if LP  is None:
       error = "INVALID NAME"
     return render_template('product/result.html', LP= LP)

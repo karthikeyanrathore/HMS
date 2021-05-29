@@ -5,11 +5,48 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="find">NAME</label>
-    <input name="find" id="find" required>
-    <label for="name">PASSWORD</label>
-    <input name="name" id="name" required>
-    <input type="submit" value="SUBMIT">
-  </form>
+
+<div class="container h-100 p-5">
+<div class="row h-100 justify-content-center align-items-center">
+<div class="col-50 col-md-20 col-lg-5">
+
+<form method="post">
+<div class="form-group w-100">
+<label for="find" class="text-dark">Name</label>
+<input name="find" class="form-control" id="find">
+</div>
+<br>
+
+<div class="form-group w-100">
+<label for="name" class="text-dark">Password</label>
+<input name="name" class="form-control" id="name">
+
+<br>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="options" id="1" value="1" checked>
+<label class="form-check-label" for="1">
+Normal SQL Query
+</label>
+</div>
+<div class="form-check">
+<input class="form-check-input" type="radio" name="options" id="2" value="2">
+<label class="form-check-label" for="2">
+SQL injection Query
+</label>
+</div>
+
+<br>
+<input  class="btn btn-outline-dark"  type="submit" value="SUBMIT">
+</div>
+</form>
+
+
+
+
+
+
+</div>
+</div>
+</div>
 {% endblock %}

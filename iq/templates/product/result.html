@@ -5,14 +5,35 @@
 {% endblock %}
 
 {% block content %}
-<p class="body">Name:{{ LP['name'] }}</p>
-<p class="body">Price:{{ LP['price'] }}</p>
-<p class="body">Stock:{{ LP['stock'] }}</p>
+
+<div class="container h-100 p-5">
+<div class="row h-100 justify-content-center align-items-center">
+<div class="col-70 col-md-100 col-lg-9">
+
+
+<table class="table p-4 mb-4">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Stock</th>
+    </tr>
+  </thead>
 {% for x in LP %}
-<p class="body">Name:{{ x['name'] }}</p>
-<p class="body">Price:{{x['price'] }}</p>
-<p class="body">Stock:{{x['stock'] }}</p>
+  <tbody>
+    <tr>
+      <th scope="row">{{x['id']}}</th>
+      <td>{{x['name']}}</td>
+      <td>{{x['price']}}</td>
+      <td>{{x['stock']}}</td>
+    </tr>
+  </tbody>
 {% endfor %}
+</table>
+</div>
+</div>
+</div>
 
 {% endblock %}
 
