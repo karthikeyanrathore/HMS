@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}INSERT{% endblock %}</h1>
+  <h1>{% block title %}Delete{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -11,11 +11,11 @@
 <div class="col-100 col-md-90 col-lg-10">
 
  <form method="post">
-   <h1><p class ="text-success">Insert Data</p></h1>
+   <h1><p class ="text-danger">Delete Data</p></h1>
    
-   <h5><p class ="text-success">No of rows : {{rows}}</p></h5>
+   <h5><p class ="text-danger">No of rows : {{rows}}</p></h5>
    <br></br>
-   <input  class="btn btn-outline-success" type="submit" value="INSERT">
+   <input  class="btn btn-outline-danger" type="submit" value="DELETE">
   </form>
 
 </div>
