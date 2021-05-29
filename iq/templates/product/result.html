@@ -5,18 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  
-  
-<p class="body">{{ LP['name'] }}</p>
-<p class="body">{{ LP['price'] }}</p>
- <p class="body">{{ LP['stock'] }}</p>
- {% for x in LP %}
-    <article class="post">
-      <p class="body">{{ x['name'] }}</p>
-      <p class="body">{{ x['stock'] }}</p>
+<p class="body">Name:{{ LP['name'] }}</p>
+<p class="body">Price:{{ LP['price'] }}</p>
+<p class="body">Stock:{{ LP['stock'] }}</p>
+{% for x in LP %}
+<p class="body">Name:{{ x['name'] }}</p>
+<p class="body">Price:{{x['price'] }}</p>
+<p class="body">Stock:{{x['stock'] }}</p>
+{% endfor %}
 
-      <p class="body">{{ x['price'] }}</p>
-    </article>
-  {% endfor %}
 {% endblock %}
 
