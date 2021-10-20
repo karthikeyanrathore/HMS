@@ -1,9 +1,0 @@
-How SQL injection works? 
-
-sql query: LP = db.execute(f"SELECT * FROM product WHERE id = '{find}' AND name = '{name}'")
-name: 1'--
-password: anything
-conclusion: It will comment down name (password) . so without password you can get info of user.
-
-
-
